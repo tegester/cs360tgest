@@ -1,20 +1,20 @@
 public class hashTab {
 	//word[] table;
-	int[] table;
+	linkedList<word>[] table;
+	int length;
 	float currHash;
 	int fill;
 	int power;
-	int length;
 
 	public hashTab() {
 		//h(k) = floor(length(k*currHash mod(1))
 		//Initial length of table 
 		power = 10;
-		int length = (int) Math.pow(2, power);
+		length = (int) Math.pow(2, power);
 		currHash = (float) (Math.sqrt(5)-1)/2;
 		fill = 0;
 		//table = new word[length];
-		table = new int[length];
+		table = new linkedList[length];
 	}
 	
 	public void addword(String nWord){
@@ -23,11 +23,19 @@ public class hashTab {
 		String lword = nWord.toLowerCase();
 		//Calculate k value by each character's ASCII value * its index+1
 		int hash = hashWord(lword);
-		//remove and accualy hash ...
-		table[hash]++;
+		table[hash].add(new word(nWord));
+		if((float)fill/length >= .5){
+			doub();
+		}
+		
 	}
 	
-	//get random number and check divisible by 2 then repeat until non divisible by 2 number is found 
+	private void doub() {
+		power++;
+		linkedList<word>[] newtable = new linkedList[(int) Math.pow(2, power)];
+		
+	}
+
 	private int hashWord(String lword){
 		int k =0;
 		for(int i=0; i<lword.length();i++){

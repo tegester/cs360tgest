@@ -17,7 +17,7 @@ public class Project2 {
 				System.out.println(arr[i].getname());
 			}
 		}
-		linkedList st = new linkedList();
+		linkedList<String> st = new linkedList<String>();
 		st.add("hey");
 		System.out.println(st.toString());
 		linkedList wd = new linkedList();

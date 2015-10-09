@@ -7,9 +7,11 @@ public class linkedList <T> {
 	private Node<T> head;
 	private Node<T> tail;
 	private int count;
+	Node<T> current;
 
 	public linkedList() {
 		head = new Node<T>(null);
+		current = head;
 		tail = head;
 		count =0;
 	}
@@ -19,6 +21,7 @@ public class linkedList <T> {
 		tail = temp;
 		count++;
 	}
+
 	public Boolean contains(T data){
 		Node<T> cur = head.nextN();
 		for(int i = 0;i<count-1;i++){
@@ -28,23 +31,26 @@ public class linkedList <T> {
 			cur = cur.nextN();
 		}		
 		return false;
+	}	
+
+	public void newWalk(){
+		current = head;
 	}
-	public String toString(){
-		if(count == 0){
-			return "";
+	public Boolean isNext(){
+		if(null != current.nextN()){
+			return true;
 		}
-		String sPrint = "(";
-		Node<T> cur = head.nextN();
-		for(int i = 0; i<count-1;i++){
-			sPrint=sPrint+" "+cur.getData();
-			cur = cur.nextN();
+		else{
+			return false;
 		}
-		sPrint=sPrint+")";
-		return sPrint;
+	}
+	public T nextNode(){
+		current =current.nextN();
+		return current.data;
 	}
 	
 	//node for the linked list
-	private class Node<T> {
+	private class Node <T> {
 		private Node<T> next;
 		private T data;
  
