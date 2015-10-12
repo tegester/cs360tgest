@@ -1,18 +1,16 @@
 import java.util.Objects;
 
 
-public class word {
-	String loname; 
-	linkedList<String> words;
+public class Word {
+	private String loname; 
+	LinkedList<String> words;
 	int count = 0;
-	
-	
 
-	public word(String name) {
+	public Word(String name) {
 		loname = name.toLowerCase();
 		count ++;
-		words = new linkedList<String>();
-		if(!Objects.equals(loname, name)){
+		words = new LinkedList<String>();
+		if(!loname.equals(name)){
 			words.add(name);
 		}
 	}
@@ -21,9 +19,11 @@ public class word {
 		return loname;
 	}
 	
+	
+	
 	public void addword(String word){
 		count++;
-		if(!Objects.equals(loname, word) && words.contains(word)){
+		if(!loname.equals(word) && !words.contains(word)){
 			words.add(word);
 		}	
 	}
@@ -31,15 +31,16 @@ public class word {
 	public String toString(){
 		
 		String sPrint = loname;
-		if(words != null){
+		if(words.isList()){
 			sPrint = sPrint+" (";
 			words.newWalk();
 			while(words.isNext()){
 				sPrint = sPrint+ words.nextNode()+" ";
 			}
-			sPrint = ")";
+			sPrint =sPrint.substring(0,sPrint.length()-1);
+			sPrint = sPrint+")";
 		}
-		sPrint = sPrint +" -"+ count;
+		sPrint = sPrint +" - "+ count;
 		return sPrint;
 	}
 

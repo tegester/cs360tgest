@@ -3,41 +3,46 @@ import java.util.Objects;
 //Similar to  linked list gone over in cs260 
 //no remove required
 //to string requires all objects to be strings 
-public class linkedList <T> {
-	private Node<T> head;
-	private Node<T> tail;
-	private int count;
-	Node<T> current;
+public class LinkedList <T> {
+	private Node<T> head = new Node<T>(null,null);
+	private int size;
+	private Node<T> cur;
 
-	public linkedList() {
-		head = new Node<T>(null);
-		current = head;
-		tail = head;
-		count =0;
+//Class<T> c
+	public  LinkedList() {
+		head.next = head;
+		cur = head;
+		size = 0;
 	}
+	
 	public void add(T data){
-		Node<T> temp = new Node<T> (data);
-		tail.setN(temp);
-		tail = temp;
-		count++;
+		head.next = head.addNode(data);
+		size++;
 	}
 
 	public Boolean contains(T data){
-		Node<T> cur = head.nextN();
-		for(int i = 0;i<count-1;i++){
-			if(Objects.equals(cur.getData(), data)){
+		for(Node<T> n = head.next; n != head; n = n.next){
+			if(Objects.equals(data, n.data)){
 				return true;
-			} 
-			cur = cur.nextN();
-		}		
+			}
+		}
 		return false;
-	}	
+	}
+	
+	public String toString(){
+		String st = "";
+		for(Node<T> n = head.next; n != head; n = n.next){
+			st = st+ n.data +"\n";
+		}
+		return st;
+	}
 
 	public void newWalk(){
-		current = head;
+		cur = head;
 	}
+
 	public Boolean isNext(){
-		if(null != current.nextN()){
+		if(head != this.cur.next){
 			return true;
 		}
 		else{
@@ -45,29 +50,32 @@ public class linkedList <T> {
 		}
 	}
 	public T nextNode(){
-		current =current.nextN();
-		return current.data;
+		cur = cur.next;
+		return cur.data;
+	}
+	public Boolean isList(){
+		if(size >0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	//node for the linked list
-	private class Node <T> {
-		private Node<T> next;
-		private T data;
+	private class Node <K> {
+		Node<K> next;
+		K data;
  
         // Node constructor
-        public Node(T newData) {
-            next = null;
-            data = newData;
+        public Node(K newData, Node<K> next) {
+            this.next = next;
+            this.data = newData;
         }
-        //Required methods for node
-        public T getData(){
-        	return data;
-        }
-        public Node<T> nextN(){
-        	return next;
-        }
-        public void setN (Node<T> newN){
-        	next = newN;
-        }
+        
+        public Node<K> addNode (K newData){
+            Node<K> newNode = new Node<K>(newData, this.next);
+            return newNode;
+        } 
 	}
 }
