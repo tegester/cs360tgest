@@ -15,6 +15,7 @@ public class HashTab {
 //		currHash = (Math.sqrt(5)-1)/2;
 		//Changed to this hash testing showed slight improvement over other 
 		currHash = (Math.exp(Math.PI))%1;
+//		currHash = 1;
 		fill = 0;
 		//table = new word[length];
 		table = new LinkedList[length];
@@ -64,10 +65,10 @@ public class HashTab {
 		power++;
 		length = length * 2;
 		LinkedList<Word>[] newtable = new LinkedList[length];
-//		int[] newtestingtab = new int[length];
+		int[] newtestingtab = new int[length];
 		for(int i=0; i < length; i++){
 			newtable[i] = new LinkedList<Word>();
-//			newtestingtab[i]=0;
+			newtestingtab[i]=0;
 		}
 		Word moving = null;
 		int newhash;
@@ -78,7 +79,7 @@ public class HashTab {
 					moving = table[i].nextNode();
 					newhash= hashWord(moving.getname());
 					newtable[newhash].add(moving);
-//					newtestingtab[newhash]++;
+					newtestingtab[newhash]++;
 				}
 			}
 		}
