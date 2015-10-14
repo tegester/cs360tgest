@@ -13,13 +13,21 @@ public class Project2 {
 		}
 		Read input = new Read(args[0]);
 		HashTab arry = new HashTab();
+		//read first word before loop
 		String theword = input.readWord();
 		while(theword != null){
+			//read all the words 
+			//put words into table
 			arry.addword(theword);
+			//last null will not be sent to hash table
 			theword = input.readWord();
 		}
 		input.close();
-		ToFile.toFile(arry.testingtab,"output.csv");
+		
+		//umcomment lines in HashTab and these to print out the output files 
+//		ToFile.toFile(arry.testingtab,"output.csv");
+		
+		//print out hash table in correct form 
 		System.out.println(arry);
 	}
 }
