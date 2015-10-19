@@ -1,4 +1,5 @@
-//Tyler Gester 
+//Tyler Gester
+//Project 2
 //cs360
 //10-18-15
 public class Project2 {
@@ -10,7 +11,7 @@ public class Project2 {
 			System.exit(2);
 		}
 		if(args.length != 1){
-			System.out.println("please enter only a file name");
+			System.out.println("please enter only a file name and nothing else ");
 			System.exit(2);
 		}
 		//setup code for adding loop
@@ -28,7 +29,7 @@ public class Project2 {
 		//do not forget to close file
 		input.close();
 		
-		//umcomment lines in HashTab and these to print out the output files 
+		//uncomment lines in HashTab and the line below to print out the testing csv file 
 //		ToFile.toFile(arry.testingtab,"output.csv");
 		
 		//print out hash table in correct form 

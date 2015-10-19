@@ -7,15 +7,15 @@ class Read{
 	BufferedReader reader;
 	
 	public Read(String file){
-		// check for bad input 
+		//checking for bad input 
 		try {
 			reader = Files.newBufferedReader(Paths.get(file));
 			if(!reader.ready()){
-				System.out.println("please use a vialid file");
+				System.out.println("please use a valid file");
 				System.exit(4);
 			}
 		} catch (IOException e) {
-			System.out.println("please enter a valed text file");
+			System.out.println("please enter a valid text file");
 			System.exit(99);
 		}
 		
@@ -56,7 +56,7 @@ class Read{
 			}
 		//exit if read error
 		}catch (IOException e) {
-			System.out.println("check readword io error");
+			System.out.println("check readWord io error");
 			System.exit(9);
 		}
 		return newword;

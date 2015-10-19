@@ -5,10 +5,10 @@ public class HashTab {
 	double currHash;
 	int fill;
 	int power;
-	//uncomminut lines with testingtab and newtestingtab to get csv of the length of linked lists at each index
+	//uncomment lines with testingtab and newtestingtab to get csv of the length of linked lists at each index
 //	int[] testingtab;
 
-	// java dose not like arrays and generics this is a know issue with the generics implementation...
+	//java does not like arrays and generics; this is a known issue with the generics implementation...
 	//this can be fixed with ArrayList while keeping random access (except I can't use ArrayList) 
 	//http://www.angelikalanger.com/GenericsFAQ/FAQSections/ParameterizedTypes.html#FAQ104
 	//http://stackoverflow.com/questions/1817524/generic-arrays-in-java
@@ -19,51 +19,51 @@ public class HashTab {
 		//table starts out at a length of 2
 		power = 1;
 		length = (int) Math.pow(2, power);
-		//book suggest this is good hash
+		//book suggests this is good hash
 //		currHash = (Math.sqrt(5)-1)/2;
 		//tested if rehashing is important ... it is
 //		currHash = 1;
-		//Changed to this hash testing showed slight improvement over others 
-		//please see excel files for test good hashes had low max chains and fewer zeros
+		//changed to this hash; testing showed slight improvement over others 
+		//please see excel files for testing; good hashes had low max chains and fewer zeros
 		currHash = (Math.exp(Math.PI))%1;
 		//fill is the load factor 
 		fill = 0;
-		//java doesn't like this line the type is checked in the loop. 
+		//java doesn't like this line; the type is checked in the loop. 
 		table = new LinkedList[length];
-//		testingtab= new int[length];
+//		testingtab = new int[length];
 		for(int i=0; i < length; i++){
 			table[i] = new LinkedList<Word>();
 //			testingtab[i] = 0;
 		}
 	}
 	
-	public void addword(String nWord){
-		//convert nword to lower case
-		String lword = nWord.toLowerCase();
-		//Calculate k value by each character's ASCII 
+	public void addword(String newWord){
+		//convert newWord to lower case
+		String lword = newWord.toLowerCase();
+		//calculate k value by each character's ASCII 
 		int hash = hashWord(lword);
 		//find if the index already has the word return word or null if not
 		Word wordwithstring = indexHasWord(hash,lword);
-		//if the word exist add to that word
+		//if the word exists, add to that word
 		if(wordwithstring != null){
-				wordwithstring.addword(nWord);
+				wordwithstring.addword(newWord);
 		}
 		//if not make a new word class. increment fill if adding new word
 		else{
-			table[hash].add(new Word(nWord));
+			table[hash].add(new Word(newWord));
 //			testingtab[hash]++;
 			fill++;
 		}
-		// check for load factor
-		//wiki suggest that at a load factor of one the average linked list should still be short
-		// testing shows at a load factor of 1 the longest linked list is still under 10 long at 2^16 entries 
+		//check for load factor
+		//wiki suggests that at a load factor of one, the average linked list should still be short
+		//testing shows at a load factor of 1 the longest linked list is still under 10 long at 2^16 entries 
 		if((float)fill/length >= 1){
 			doub();
 		}
 		
 	}
 	
-	// look for word in index's linked list return word or null if not found
+	//look for word in index's linked list; return word or null if the word is not found
 	//order N for n long list
 	private Word indexHasWord(int hash, String lword){
 		table[hash].newWalk();
@@ -82,12 +82,12 @@ public class HashTab {
 		
 	}
 	
-	//makes a new array of 2^(power+1) and move values to new array
-	//this could be faster if I made it multi-threaded it would have the same algorithmic speed but...
-	//you can still add words while the table is moving. out of scope for this project.
+	//makes a new array of 2^(power+1) and moves values to new array.
+	//this could be faster if I made it multi-threaded. It would have the same algorithmic speed but...
+	//you can still add words while the table is moving. Out of scope for this project.
 	private void doub() {
 //		ToFile.toFile(testingtab, "output"+String.valueOf(length)+".csv");
-		// make new array of longer length
+		//make new array of longer length
 		power++;
 		length = length * 2;
 		//make new array
@@ -122,14 +122,14 @@ public class HashTab {
 	}
 	
 	//print by including the number of words at top then
-	// looping through table and printing each list
+	//looping through table and printing each list
 	public String toString(){
 		String st = "Words "+ fill + '\n'+'\n';
 		for(int i =0; i< table.length;i++){
 			if(table[i].isList()){
 				table[i].newWalk();
 				while(table[i].isNext()){
-					//converts table to string by linked list's toString()
+					//converts table to string by LinkedList's toString()
 					st= st + table[i].nextNode()+"\n";
 				}
 			}
@@ -151,10 +151,10 @@ public class HashTab {
 			k = k*73 + lword.charAt(i);
 			
 		}
-		//since conversion makes numbers that overflow int need to remove negatives
+		//since conversion makes numbers that overflow, int needs to remove negatives
 		//there are no negative table indices 
 		k = Math.abs(k);
-		//currently using (Math.exp(Math.PI))%1;; for hash
+		//currently using (Math.exp(Math.PI))%1 for hash
 		//see excel files for progression of hash 
 		int hashNumber =(int) Math.floor(length*((k*currHash)%(1)));
 		return hashNumber;

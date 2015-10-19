@@ -1,8 +1,8 @@
 import java.util.Objects;
 
-//Similar to  linked list gone over in cs260 but generic implementation 
-//no remove required for this project 
-//to string requires all objects in the list to be cast-able to string 
+//similar to LinkedList gone over in cs260, but generic implementation 
+//no removal required for this project 
+//toString() requires all objects in the list to be cast-able to string 
 public class LinkedList <T> {
 	//pointer node
 	private Node<T> head = new Node<T>(null,null);
