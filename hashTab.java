@@ -5,9 +5,15 @@ public class HashTab {
 	double currHash;
 	int fill;
 	int power;
+	//uncomminut lines with testingtab and newtestingtab to get csv of the length of linked lists at each index
 //	int[] testingtab;
 
-
+	// java dose not like arrays and generics this is a know issue with the generics implementation...
+	//this can be fixed with ArrayList while keeping random access (except I can't use ArrayList) 
+	//http://www.angelikalanger.com/GenericsFAQ/FAQSections/ParameterizedTypes.html#FAQ104
+	//http://stackoverflow.com/questions/1817524/generic-arrays-in-java
+	//http://stackoverflow.com/questions/879855/what-are-reified-generics-how-do-they-solve-type-erasure-problems-and-why-cant
+	@SuppressWarnings("unchecked")
 	public HashTab() {
 		//Initial length of table
 		//table starts out at a length of 2
@@ -77,14 +83,16 @@ public class HashTab {
 	}
 	
 	//makes a new array of 2^(power+1) and move values to new array
-	//this could be faster if I made it multi-threaded it would have the same algremithic speed but...
-	//you can still add words while the table is moving 
+	//this could be faster if I made it multi-threaded it would have the same algorithmic speed but...
+	//you can still add words while the table is moving. out of scope for this project.
 	private void doub() {
 //		ToFile.toFile(testingtab, "output"+String.valueOf(length)+".csv");
 		// make new array of longer length
 		power++;
 		length = length * 2;
 		//make new array
+		//see above for suppress warning
+		@SuppressWarnings("unchecked")
 		LinkedList<Word>[] newtable = new LinkedList[length];
 //		int[] newtestingtab = new int[length];
 		for(int i=0; i < length; i++){
@@ -113,9 +121,10 @@ public class HashTab {
 		
 	}
 	
-	//print function by looping through table and printing each list
+	//print by including the number of words at top then
+	// looping through table and printing each list
 	public String toString(){
-		String st = "";
+		String st = "Words "+ fill + '\n'+'\n';
 		for(int i =0; i< table.length;i++){
 			if(table[i].isList()){
 				table[i].newWalk();
@@ -128,17 +137,24 @@ public class HashTab {
 		return st;
 	}
 	
+	//make hash from word
 	private int hashWord(String lword){
 		int k =0;
 		int wordLen = lword.length();
 		for(int i=0; i<wordLen;i++){
 			//conversion to int is sum of s[i] * 73 ^(n-1-i)
-			//see excel files for failed versions 
+			//see excel files for iterations and experimentation 
+//			k = k+lword.charAt(i);
+//			k = k+lword.charAt(i)*(i+1);
+//			k = (int) (k+lword.charAt(i)*Math.pow(7, i));
+//			k = k*31 + lword.charAt(i);
 			k = k*73 + lword.charAt(i);
 			
 		}
+		//since conversion makes numbers that overflow int need to remove negatives
+		//there are no negative table indices 
 		k = Math.abs(k);
-		//currently using (Math.sqrt(5)-1)/2; for hash
+		//currently using (Math.exp(Math.PI))%1;; for hash
 		//see excel files for progression of hash 
 		int hashNumber =(int) Math.floor(length*((k*currHash)%(1)));
 		return hashNumber;

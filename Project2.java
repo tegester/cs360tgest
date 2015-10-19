@@ -1,4 +1,6 @@
-
+//Tyler Gester 
+//cs360
+//10-18-15
 public class Project2 {
 	
 	public static void main(String[] args){
@@ -11,6 +13,7 @@ public class Project2 {
 			System.out.println("please enter only a file name");
 			System.exit(2);
 		}
+		//setup code for adding loop
 		Read input = new Read(args[0]);
 		HashTab arry = new HashTab();
 		//read first word before loop
@@ -22,6 +25,7 @@ public class Project2 {
 			//last null will not be sent to hash table
 			theword = input.readWord();
 		}
+		//do not forget to close file
 		input.close();
 		
 		//umcomment lines in HashTab and these to print out the output files 

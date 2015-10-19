@@ -7,6 +7,7 @@ class Read{
 	BufferedReader reader;
 	
 	public Read(String file){
+		// check for bad input 
 		try {
 			reader = Files.newBufferedReader(Paths.get(file));
 			if(!reader.ready()){
@@ -24,6 +25,7 @@ class Read{
 	public String readWord(){
 		String newword = "";
 		try{
+			//the list of separators 
 			String separators = ",.!?\"%$&- 	"+'\n'+'\r'+"1234567890";
 			//read first character
 			int c = reader.read();
@@ -42,14 +44,17 @@ class Read{
 			}
 			//now letter is always the first part of a word 
 			while(!separators.contains(letter)){
+				//build word one letter at a time
 				newword= newword + letter;
 				c = reader.read();
+				//check for end of word
 				if (c == -1){
 					return newword;
 				}
+				//get letter to build 
 				letter = Character.toString((char) c);
 			}
-			
+		//exit if read error
 		}catch (IOException e) {
 			System.out.println("check readword io error");
 			System.exit(9);
@@ -57,6 +62,7 @@ class Read{
 		return newword;
 	}
 	
+	// be sure to close the file to prevent errors 
 	public void close(){
 		try {
 			reader.close();
